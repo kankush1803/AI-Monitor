@@ -3,6 +3,13 @@ import { motion } from 'framer-motion';
 import { FileText, TrendingUp, ShieldCheck, Zap, ArrowRight, BarChart } from 'lucide-react';
 
 const SummaryView = ({ stats }) => {
+  // You can replace this with your actual Canva Template or Report link
+  const CANVA_REPORT_URL = "https://www.canva.com/design/play"; 
+
+  const handleOpenCanva = () => {
+    window.open(CANVA_REPORT_URL, '_blank', 'noopener,noreferrer');
+  };
+
   return (
     <div style={{ padding: '0 40px' }}>
       <motion.div 
@@ -13,9 +20,9 @@ const SummaryView = ({ stats }) => {
       >
         <h2 style={{ fontSize: '2rem', marginBottom: '16px' }}>Executive Summary</h2>
         <p style={{ color: 'var(--text-muted)', fontSize: '1.1rem', maxWidth: '800px', lineHeight: '1.6' }}>
-          The AI-Monitor system has successfully processed <strong>{stats.totalAlerts} alerts</strong> this period. 
-          Our AI-driven sentiment analysis indicates a <strong>{stats.positiveSentiment} positive sentiment</strong> across monitored competitors, 
-          with <strong>{stats.highPriority} high-priority</strong> triggers requiring immediate attention.
+          The AI-Monitor system has successfully processed <strong>{stats?.totalAlerts || 0} alerts</strong> this period. 
+          Our AI-driven sentiment analysis indicates a <strong>{stats?.positiveSentiment || '0%'} positive sentiment</strong> across monitored competitors, 
+          with <strong>{stats?.highPriority || 0} high-priority</strong> triggers requiring immediate attention.
         </p>
         
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '24px', marginTop: '40px' }}>
@@ -94,7 +101,11 @@ const SummaryView = ({ stats }) => {
             gap: '12px'
           }}>
             <p style={{ color: 'var(--text-muted)' }}>Weekly Visualization Generated</p>
-            <button className="glass glass-hover" style={{ padding: '8px 20px', background: 'var(--primary)', color: 'white', border: 'none', fontWeight: 600 }}>
+            <button 
+              onClick={handleOpenCanva}
+              className="glass glass-hover" 
+              style={{ padding: '8px 20px', background: 'var(--primary)', color: 'white', border: 'none', fontWeight: 600, cursor: 'pointer' }}
+            >
               Open in Canva
             </button>
           </div>
