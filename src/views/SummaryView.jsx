@@ -1,6 +1,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { FileText, TrendingUp, ShieldCheck, Zap, ArrowRight, BarChart } from 'lucide-react';
+import canvaReportPreview from '../assets/canva-report.png';
 
 const SummaryView = ({ stats }) => {
   // You can replace this with your actual Canva Template or Report link
@@ -83,34 +84,69 @@ const SummaryView = ({ stats }) => {
           animate={{ opacity: 1, x: 0 }}
           transition={{ delay: 0.2 }}
           className="glass" 
-          style={{ padding: '30px' }}
+          style={{ padding: '30px', overflow: 'hidden' }}
         >
           <h3 style={{ marginBottom: '20px', display: 'flex', alignItems: 'center', gap: '10px' }}>
             <ShieldCheck size={20} color="var(--success)" />
-            Weekly Canva Report
+            Weekly AI Report
           </h3>
-          <div style={{ 
-            height: '200px', 
-            background: 'rgba(255,255,255,0.05)', 
-            borderRadius: '12px',
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'center',
-            justifyContent: 'center',
-            border: '2px dashed var(--border)',
-            gap: '12px'
-          }}>
-            <p style={{ color: 'var(--text-muted)' }}>Weekly Visualization Generated</p>
-            <button 
-              onClick={handleOpenCanva}
-              className="glass glass-hover" 
-              style={{ padding: '8px 20px', background: 'var(--primary)', color: 'white', border: 'none', fontWeight: 600, cursor: 'pointer' }}
-            >
-              Open in Canva
-            </button>
+          <div 
+            className="group"
+            style={{ 
+              position: 'relative',
+              height: '220px', 
+              borderRadius: '12px',
+              overflow: 'hidden',
+              cursor: 'pointer'
+            }}
+            onClick={handleOpenCanva}
+          >
+            <img 
+              src={canvaReportPreview} 
+              alt="Canva Report Preview" 
+              style={{ 
+                width: '100%', 
+                height: '100%', 
+                objectFit: 'cover',
+                transition: 'transform 0.5s ease'
+              }}
+              className="preview-img"
+            />
+            <div style={{ 
+              position: 'absolute',
+              inset: 0,
+              background: 'linear-gradient(0deg, rgba(2, 6, 23, 0.8) 0%, rgba(2, 6, 23, 0.2) 100%)',
+              display: 'flex',
+              flexDirection: 'column',
+              alignItems: 'center',
+              justifyContent: 'center',
+              opacity: 0.8,
+              transition: 'opacity 0.3s ease'
+            }} className="preview-overlay">
+              <motion.button 
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                className="glass" 
+                style={{ 
+                  padding: '12px 24px', 
+                  background: 'var(--primary)', 
+                  color: 'white', 
+                  border: 'none', 
+                  fontWeight: 600,
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '8px',
+                  boxShadow: '0 10px 25px -5px rgba(99, 102, 241, 0.4)'
+                }}
+              >
+                <Zap size={16} fill="currentColor" />
+                Open in Canva
+              </motion.button>
+            </div>
           </div>
-          <p style={{ marginTop: '20px', fontSize: '0.875rem', color: 'var(--text-muted)', lineHeight: '1.5' }}>
-            Automated insight report ready for stakeholder presentation. Includes sentiment heatmaps and competitor share breakdown.
+          <p style={{ marginTop: '20px', fontSize: '0.875rem', color: 'var(--text-muted)', lineHeight: '1.6' }}>
+            Our AI has automatically synthesized this week's competitor shifts into a professional presentation. 
+            Includes sentiment heatmaps and predictive market analysis.
           </p>
         </motion.div>
       </div>
