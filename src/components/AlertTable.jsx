@@ -2,6 +2,22 @@ import React from 'react';
 import { ExternalLink, ChevronRight, AlertTriangle } from 'lucide-react';
 
 const AlertTable = ({ alerts }) => {
+  const formatDate = (dateInput) => {
+    try {
+      const date = new Date(dateInput);
+      if (isNaN(date.getTime())) return dateInput; // Return raw string if parsing fails
+      
+      return date.toLocaleDateString('en-US', { 
+        month: 'short', 
+        day: 'numeric', 
+        hour: '2-digit', 
+        minute: '2-digit' 
+      });
+    } catch (e) {
+      return dateInput;
+    }
+  };
+
   return (
     <div className="glass" style={{ overflow: 'hidden' }}>
       <div style={{ padding: '24px', borderBottom: '1px solid var(--border)', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
@@ -23,7 +39,7 @@ const AlertTable = ({ alerts }) => {
           {alerts.map((alert, i) => (
             <tr key={alert.id} className="glass-hover" style={{ borderBottom: i === alerts.length - 1 ? 'none' : '1px solid var(--border)' }}>
               <td style={{ padding: '20px 24px', fontSize: '0.875rem' }}>
-                {new Date(alert.date).toLocaleDateString('en-US', { month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' })}
+                {formatDate(alert.date)}
               </td>
               <td style={{ padding: '20px 24px' }}>
                 <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
@@ -47,12 +63,12 @@ const AlertTable = ({ alerts }) => {
                 </div>
               </td>
               <td style={{ padding: '20px 24px' }}>
-                <span className={`badge badge-${alert.sentiment.toLowerCase()}`}>
+                <span className={`badge badge-${alert.sentiment ? alert.sentiment.toLowerCase() : 'neutral'}`}>
                   {alert.sentiment}
                 </span>
               </td>
               <td style={{ padding: '20px 24px' }}>
-                <span className={`badge badge-${alert.category.toLowerCase()}`}>
+                <span className={`badge badge-${alert.category ? alert.category.toLowerCase() : 'general'}`}>
                   {alert.category}
                 </span>
               </td>

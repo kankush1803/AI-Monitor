@@ -1,14 +1,13 @@
 import React, { useState } from 'react';
-import { mockAlerts } from '../data/mockData';
 import AlertTable from '../components/AlertTable';
 import { motion } from 'framer-motion';
 import { Filter, Search } from 'lucide-react';
 
-const AlertsView = () => {
+const AlertsView = ({ alerts }) => {
   const [filter, setFilter] = useState('All');
   const [search, setSearch] = useState('');
 
-  const filteredAlerts = mockAlerts.filter(alert => {
+  const filteredAlerts = alerts.filter(alert => {
     const matchesFilter = filter === 'All' || alert.category === filter;
     const matchesSearch = alert.subject.toLowerCase().includes(search.toLowerCase()) || 
                           alert.competitor.toLowerCase().includes(search.toLowerCase());

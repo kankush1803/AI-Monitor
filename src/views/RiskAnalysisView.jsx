@@ -1,11 +1,10 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { mockAlerts } from '../data/mockData';
 import AlertTable from '../components/AlertTable';
-import { ShieldAlert, AlertTriangle, Info } from 'lucide-react';
+import { ShieldAlert, AlertTriangle } from 'lucide-react';
 
-const RiskAnalysisView = () => {
-  const riskAlerts = mockAlerts.filter(a => a.alert || a.sentiment === 'Negative' || a.category === 'Controversy');
+const RiskAnalysisView = ({ alerts }) => {
+  const riskAlerts = alerts.filter(a => a.alert || a.sentiment === 'Negative' || a.category === 'Controversy');
 
   return (
     <div style={{ padding: '0 40px' }}>
@@ -19,8 +18,8 @@ const RiskAnalysisView = () => {
             <AlertTriangle size={32} />
           </div>
           <div>
-            <div style={{ fontSize: '1.25rem', fontWeight: 700 }}>High Risk detected</div>
-            <div style={{ color: 'var(--text-muted)' }}>3 pricing controversies in the last 48 hours</div>
+            <div style={{ fontSize: '1.25rem', fontWeight: 700 }}>High Risk items</div>
+            <div style={{ color: 'var(--text-muted)' }}>{riskAlerts.length} items requiring attention</div>
           </div>
         </div>
         <div className="glass" style={{ padding: '24px', display: 'flex', gap: '20px', alignItems: 'center', borderLeft: '4px solid var(--warning)' }}>
@@ -28,8 +27,8 @@ const RiskAnalysisView = () => {
             <ShieldAlert size={32} />
           </div>
           <div>
-            <div style={{ fontSize: '1.25rem', fontWeight: 700 }}>Market Sensitivity</div>
-            <div style={{ color: 'var(--text-muted)' }}>Sentiment toward Flipkart is trending down</div>
+            <div style={{ fontSize: '1.25rem', fontWeight: 700 }}>Security Status</div>
+            <div style={{ color: 'var(--text-muted)' }}>Monitoring active for all competitors</div>
           </div>
         </div>
       </motion.div>

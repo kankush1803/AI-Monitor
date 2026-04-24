@@ -1,18 +1,16 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { ChartsSection } from '../components/Analytics';
-import { stats } from '../data/mockData';
-import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Cell } from 'recharts';
+import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, Cell } from 'recharts';
 
-const AnalyticsView = () => {
-  const categoryData = [
-    { name: 'Pricing', value: 12 },
-    { name: 'Launch', value: 19 },
-    { name: 'Feature', value: 8 },
-    { name: 'Controversy', value: 3 },
-  ];
+const AnalyticsView = ({ alerts, stats }) => {
+  const categories = alerts.reduce((acc, a) => {
+    acc[a.category] = (acc[a.category] || 0) + 1;
+    return acc;
+  }, {});
 
-  const COLORS = ['#f59e0b', '#6366f1', '#0ea5e9', '#ef4444'];
+  const categoryData = Object.entries(categories).map(([name, value]) => ({ name, value }));
+  const COLORS = ['#f59e0b', '#6366f1', '#0ea5e9', '#ef4444', '#10b981'];
 
   return (
     <div style={{ padding: '0 40px' }}>

@@ -1,11 +1,10 @@
 import React from 'react';
 import { StatCard, ChartsSection } from '../components/Analytics';
 import AlertTable from '../components/AlertTable';
-import { mockAlerts, stats } from '../data/mockData';
 import { TrendingUp, AlertCircle, Zap, Activity } from 'lucide-react';
 import { motion } from 'framer-motion';
 
-const DashboardView = () => {
+const DashboardView = ({ alerts, stats }) => {
   return (
     <div style={{ padding: '0 40px' }}>
       <motion.div 
@@ -31,7 +30,7 @@ const DashboardView = () => {
         <StatCard 
           title="Positive Sentiment" 
           value={stats.positiveSentiment} 
-          sub="+5% improvement" 
+          sub="Overall market tone" 
           icon={<TrendingUp size={20} />} 
           color="#10b981"
         />
@@ -60,7 +59,7 @@ const DashboardView = () => {
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5, delay: 0.2 }}
       >
-        <AlertTable alerts={mockAlerts.slice(0, 4)} />
+        <AlertTable alerts={alerts.slice(0, 5)} />
       </motion.div>
     </div>
   );
